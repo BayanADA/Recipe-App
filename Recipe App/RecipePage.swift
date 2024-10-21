@@ -7,7 +7,10 @@
 
 import SwiftUI
 
+
 struct RecipePage: View {
+    @State public var titleText = ""
+    @State public var descriptionText = ""
     init() {
         let appearance = UINavigationBarAppearance()
         appearance.configureWithOpaqueBackground()
@@ -52,26 +55,34 @@ VStack{
     Text("Title")
         .font(.system(size: 24))
         .bold()
-        .frame(width: 366, height: 29, alignment: .leading)
+        .frame(width: 370.5, height: 29, alignment: .leading)
     
-    TextField("Title", text: .constant(""))
+    TextField("Title", text: $titleText)
         .font(.system(size: 24))
         .padding()
-        .frame(width: 366, height: 47)
+        .frame(width: 370.5)
         .background(Color.mainGray)
         .cornerRadius(8)
+        .multilineTextAlignment(.leading)
+
+
+    
+        
     
     Text("Description")
         .font(.system(size: 24))
         .bold()
         .frame(width: 370.5, height: 29, alignment: .leading)
     
-    TextField("Description", text: .constant(""))
+    TextField("Description", text: $descriptionText, axis: .vertical)
         .font(.system(size: 24))
         .padding()
-        .frame(width: 368, height: 130)
+        .frame(width: 370.5)
         .background(Color.mainGray)
         .cornerRadius(8)
+        .multilineTextAlignment(.leading)
+        .lineLimit(4...10)
+    
     HStack{
         Text("Add Ingrediant")
             .font(.system(size: 24))
@@ -79,16 +90,17 @@ VStack{
          Spacer()
         Text(.init(systemName: "plus"))
             .foregroundColor(.mainOrange)
+        
             
     }
-    .frame(width: 371.5, height: 29)
+    .frame(width: 370.5, height: 29)
     
 }
     
     
 
     
-        .navigationTitle("Recipe Page")
+        .navigationTitle("New Recipe")
         .toolbar{
             ToolbarItem{
                 Text("Save")

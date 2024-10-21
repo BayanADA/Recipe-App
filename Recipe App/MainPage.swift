@@ -9,24 +9,21 @@ import SwiftUI
 
 struct MainPage: View {
     init() {
-           let appearance = UINavigationBarAppearance()
-           appearance.configureWithOpaqueBackground()
+        let appearance = UINavigationBarAppearance()
+        appearance.configureWithOpaqueBackground()
         appearance.backgroundColor = UIColor.mainGray
-           
-           UINavigationBar.appearance().standardAppearance = appearance
-           UINavigationBar.appearance().scrollEdgeAppearance = appearance
-       }
+        
+        UINavigationBar.appearance().standardAppearance = appearance
+        UINavigationBar.appearance().scrollEdgeAppearance = appearance
+    }
     var body: some View {
         
-        NavigationStack{
-            
-            ZStack {
-         
+NavigationStack{
+
+ZStack {
+
 VStack {
-  
-        
     
-   
     
     
     Image(systemName:("fork.knife.circle"))
@@ -52,16 +49,13 @@ VStack {
                 Text(.init(systemName: "plus"))
                     .foregroundColor(.mainOrange)
                 
-                
+      }
+                   }
+                }
             }
-            
         }
-     
+    }
 }
-                
-            }
-        }
-    }}
 
 #Preview {
     MainPage()

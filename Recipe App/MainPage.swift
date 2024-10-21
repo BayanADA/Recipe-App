@@ -8,22 +8,25 @@
 import SwiftUI
 
 struct MainPage: View {
+    init() {
+           let appearance = UINavigationBarAppearance()
+           appearance.configureWithOpaqueBackground()
+        appearance.backgroundColor = UIColor.mainGray
+           
+           UINavigationBar.appearance().standardAppearance = appearance
+           UINavigationBar.appearance().scrollEdgeAppearance = appearance
+       }
     var body: some View {
         
         NavigationStack{
             
             ZStack {
-                Color.white
-    .opacity(0.1)
-    .ignoresSafeArea()
-
+         
 VStack {
-    Rectangle()
-        .frame(height: 0)
-        .background(Color.mainGrey.opacity(0.2))
+  
         
     
-    Spacer()
+   
     
     
     Image(systemName:("fork.knife.circle"))
@@ -40,7 +43,7 @@ VStack {
         .foregroundColor(.gray)
         .font(.system(size: 22))
         .frame(width: 239, height: 26)
-    Spacer()
+    
     
     
         .navigationTitle("Food Recipes")

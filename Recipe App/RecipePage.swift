@@ -11,6 +11,7 @@ import SwiftUI
 struct RecipePage: View {
     @State public var titleText = ""
     @State public var descriptionText = ""
+    
     init() {
         let appearance = UINavigationBarAppearance()
         appearance.configureWithOpaqueBackground()
@@ -45,6 +46,7 @@ var body: some View {
                         .bold()
                 }
             }
+          
             VStack{
                 Text("Title")
                     .font(.system(size: 24))
@@ -58,11 +60,8 @@ var body: some View {
                     .background(Color.mainGray)
                     .cornerRadius(8)
                     .multilineTextAlignment(.leading)
-                
-                
-                
-                
-                
+                   
+ 
                 Text("Description")
                     .font(.system(size: 24))
                     .bold()

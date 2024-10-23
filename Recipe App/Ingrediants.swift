@@ -18,9 +18,9 @@ struct Ingrediants: View {
     let meas2: String
     let meas2Button: () -> ()
     let servNum: Int
-    let canButton: () -> ()
     let addButton: () -> ()
     @State var ingStepper = 1
+    @State private var offset: CGFloat = 1000
     var body: some View {
         VStack{
             Text(ingTitle)
@@ -73,12 +73,12 @@ struct Ingrediants: View {
                 .frame(width: 241, height: 10, alignment: .leading)
                 .bold()
             ZStack{
-                    Rectangle()
-                        .frame(width: 145, height: 36)
-                        .foregroundColor(.mainOrange)
-                        .cornerRadius(4)
+                Rectangle()
+                    .frame(width: 145, height: 36)
+                    .foregroundColor(.mainOrange)
+                    .cornerRadius(4)
                 
-                .frame(width: 220,alignment: .trailing)
+                    .frame(width: 220,alignment: .trailing)
                 HStack{
                     Button{
                         if ingStepper == 1{}
@@ -93,7 +93,7 @@ struct Ingrediants: View {
                     Text("\(ingStepper)")
                         .frame(width: 241, height: 36, alignment: .leading)
                         .font(.system(size: 20))
-            }
+                }
                 .padding(5)
                 VStack{ Button{
                     if ingStepper == 15{}
@@ -107,15 +107,15 @@ struct Ingrediants: View {
                     .cornerRadius(4)}}
                 .frame(width: 165, height: 39, alignment: .leading)
             }
-        .frame(width: 241, height: 36, alignment: .leading)
-        .background(Color.thirdGray)
-        .padding(.bottom, 37)
-        .cornerRadius(4)
-        
-        
-        HStack{
+            .frame(width: 241, height: 36, alignment: .leading)
+            .background(Color.thirdGray)
+            .padding(.bottom, 37)
+            .cornerRadius(4)
+            
+            
+            HStack{
                 Button {
-                    canButton()
+                    close()
                 }  label: {
                     ZStack{
                         Rectangle()
@@ -125,18 +125,18 @@ struct Ingrediants: View {
                         Text("Cancel")
                             .foregroundColor(.darkRed)
                         .font(.system(size:20))}}
-            Button {
-                addButton()
-            }  label: {ZStack{
-                Rectangle()
-                    .frame(width: 134, height: 36)
-                    .foregroundColor(.mainOrange)
-                    .cornerRadius(8)
-                Text("Add")
-                    .foregroundColor(.white)
-                .font(.system(size:20))}
+                Button {
+                    addButton()
+                }  label: {ZStack{
+                    Rectangle()
+                        .frame(width: 134, height: 36)
+                        .foregroundColor(.mainOrange)
+                        .cornerRadius(8)
+                    Text("Add")
+                        .foregroundColor(.white)
+                    .font(.system(size:20))}
+                }
             }
-        }
             
             
         }
@@ -147,11 +147,20 @@ struct Ingrediants: View {
         .background(Color.secondGrey)
         .clipShape(RoundedRectangle(cornerRadius: 20))
         .shadow(radius: 8)
+        .offset(x:0, y:offset)
+        .onAppear{
+            withAnimation(.spring()){
+            offset = 0
+        }}
     }
      
-    
+    func close() {
+        withAnimation(.spring()){
+            offset = 1000
+        }
+    }
 }
 
 #Preview {
-    Ingrediants(ingTitle: "Ingrediant name", measTitle: "Measurment", servTitle: "Serving", meas1: "🥄 Spoon", meas1Button: {}, meas2: "🥛 Cup", meas2Button: {}, servNum: 1, canButton: {}, addButton: {})
+    Ingrediants(ingTitle: "Ingrediant name", measTitle: "Measurment", servTitle: "Serving", meas1: "🥄 Spoon", meas1Button: {}, meas2: "🥛 Cup", meas2Button: {}, servNum: 1, addButton: {})
 }

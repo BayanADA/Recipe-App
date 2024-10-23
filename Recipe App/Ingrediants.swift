@@ -24,6 +24,7 @@ struct Ingrediants: View {
     let meas2: String
     let servNum: Int
     let action: () -> ()
+    @State var ingStepper = 1
     var body: some View {
         VStack{
             Text(ingTitle)
@@ -41,7 +42,7 @@ struct Ingrediants: View {
             
             Text(measTitle)
                 .font(.system(size: 20))
-                .frame(width: 275, height: 39, alignment: .leading)
+                .frame(width: 241, height: 39, alignment: .leading)
                 .bold()
             HStack{
                 ZStack{
@@ -63,53 +64,76 @@ struct Ingrediants: View {
                         .font(.system(size:14))
                 }
             }
-            .frame(width: 275, height: 8, alignment: .leading)
+            .frame(width: 241, height: 8, alignment: .leading)
             .padding(.bottom, 27)
             
             Text(servTitle)
                 .font(.system(size: 20))
-                .frame(width: 275, height: 10, alignment: .leading)
+                .frame(width: 241, height: 10, alignment: .leading)
                 .bold()
             ZStack{
-                VStack{
-                    Rectangle()
-                        .frame(width: 241, height: 36)
-                        .foregroundColor(.thirdGray)
-                        .cornerRadius(8)
-                }
-                
-                VStack{
+                HStack{
                     Rectangle()
                         .frame(width: 145, height: 36)
                         .foregroundColor(.mainOrange)
-                        .cornerRadius(8)
+                        .cornerRadius(4)
                 }
-                .frame(width: 241,alignment: .trailing)
+                
+                .frame(width: 220,alignment: .trailing)
+                HStack{
+                    Button{
+                        if ingStepper == 1{}
+                        else{
+                            ingStepper = ingStepper - 1}
+                    } label:{ Image(systemName: "minus")
+                            .foregroundColor(.mainOrange)
+                            .bold()
+                            .frame(width: 27, height: 23)
+                            .border(Color.mainOrange)
+                        .cornerRadius(4)}
+                    Text("\(ingStepper)")
+                        .frame(width: 241, height: 36, alignment: .leading)
+                        .font(.system(size: 20))
             }
-            .frame(width: 275, height: 39, alignment: .leading)
-            .padding(.bottom, 47)
-            
-            
-            HStack{
-                ZStack{
-                    Rectangle()
-                        .frame(width: 134, height: 36)
-                        .foregroundColor(.thirdGray)
-                        .cornerRadius(8)
-                    Text("Cancel")
-                        .foregroundColor(.darkRed)
-                        .font(.system(size:20))
-                }
-                ZStack{
-                    Rectangle()
-                        .frame(width: 134, height: 36)
+                .padding(5)
+                VStack{ Button{
+                    if ingStepper == 15{}
+                    else{
+                        ingStepper = ingStepper + 1}
+                } label:{ Image(systemName: "plus")
                         .foregroundColor(.mainOrange)
-                        .cornerRadius(8)
-                    Text("Add")
-                        .foregroundColor(.white)
-                        .font(.system(size:20))
-                }
+                        .bold()
+                        .frame(width: 27, height: 23)
+                        .border(Color.mainOrange)
+                    .cornerRadius(4)}}
+                .frame(width: 165, height: 39, alignment: .leading)
             }
+        .frame(width: 241, height: 36, alignment: .leading)
+        .background(Color.thirdGray)
+        .padding(.bottom, 37)
+        .cornerRadius(4)
+        
+        
+        HStack{
+            ZStack{
+                Rectangle()
+                    .frame(width: 134, height: 36)
+                    .foregroundColor(.thirdGray)
+                    .cornerRadius(8)
+                Text("Cancel")
+                    .foregroundColor(.darkRed)
+                    .font(.system(size:20))
+            }
+            ZStack{
+                Rectangle()
+                    .frame(width: 134, height: 36)
+                    .foregroundColor(.mainOrange)
+                    .cornerRadius(8)
+                Text("Add")
+                    .foregroundColor(.white)
+                    .font(.system(size:20))
+            }
+        }
             
             
         }

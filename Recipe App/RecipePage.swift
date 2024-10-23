@@ -44,6 +44,7 @@ var body: some View {
                     Text("Upload Photo")
                         .font(.system(size: 22))
                         .bold()
+                       
                 }
             }
           

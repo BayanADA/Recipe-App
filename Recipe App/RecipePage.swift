@@ -11,6 +11,7 @@ import SwiftUI
 struct RecipePage: View {
     @State public var titleText = ""
     @State public var descriptionText = ""
+    @State var isActive : Bool = false
     
     init() {
         let appearance = UINavigationBarAppearance()
@@ -22,87 +23,101 @@ struct RecipePage: View {
     }
 var body: some View {
     NavigationStack{
-        
-        VStack{
+        ZStack {
             
-            ZStack{
+            VStack{
                 
-                Rectangle()
-                    .fill(Color.mainGray)
-                    .strokeBorder(style: StrokeStyle(lineWidth: 2, dash: [5]))
-                    .foregroundColor(.mainOrange)
-                    .frame(width: 413, height: 181)
-                
+                ZStack{
+                    
+                    Rectangle()
+                        .fill(Color.mainGray)
+                        .strokeBorder(style: StrokeStyle(lineWidth: 2, dash: [5]))
+                        .foregroundColor(.mainOrange)
+                        .frame(width: 413, height: 181)
+                    
+                    
+                    VStack{
+                        
+                        Image(systemName: "photo.badge.plus")
+                            .foregroundColor(.mainOrange)
+                            .font(.system(size: 60))
+                        
+                        
+                        Text("Upload Photo")
+                            .font(.system(size: 22))
+                            .bold()
+                        
+                    }
+                }
                 
                 VStack{
-                    
-                    Image(systemName: "photo.badge.plus")
-                        .foregroundColor(.mainOrange)
-                        .font(.system(size: 60))
-                    
-                    
-                    Text("Upload Photo")
-                        .font(.system(size: 22))
-                        .bold()
-                       
-                }
-            }
-          
-            VStack{
-                Text("Title")
-                    .font(.system(size: 24))
-                    .bold()
-                    .frame(width: 370.5, height: 29, alignment: .leading)
-                
-                TextField("Title", text: $titleText)
-                    .font(.system(size: 24))
-                    .padding()
-                    .frame(width: 370.5)
-                    .background(Color.mainGray)
-                    .cornerRadius(8)
-                    .multilineTextAlignment(.leading)
-                   
- 
-                Text("Description")
-                    .font(.system(size: 24))
-                    .bold()
-                    .frame(width: 370.5, height: 29, alignment: .leading)
-                
-                TextField("Description", text: $descriptionText, axis: .vertical)
-                    .font(.system(size: 24))
-                    .padding()
-                    .frame(width: 370.5)
-                    .background(Color.mainGray)
-                    .cornerRadius(8)
-                    .multilineTextAlignment(.leading)
-                    .lineLimit(4...10)
-                
-                HStack{
-                    Text("Add Ingrediant")
+                    Text("Title")
                         .font(.system(size: 24))
                         .bold()
-                    Spacer()
-                    Text(.init(systemName: "plus"))
-                        .foregroundColor(.mainOrange)
+                        .frame(width: 370.5, height: 29, alignment: .leading)
                     
+                    TextField("Title", text: $titleText)
+                        .font(.system(size: 24))
+                        .padding()
+                        .frame(width: 370.5)
+                        .background(Color.mainGray)
+                        .cornerRadius(8)
+                        .multilineTextAlignment(.leading)
+                    
+                    
+                    Text("Description")
+                        .font(.system(size: 24))
+                        .bold()
+                        .frame(width: 370.5, height: 29, alignment: .leading)
+                    
+                    TextField("Description", text: $descriptionText, axis: .vertical)
+                        .font(.system(size: 24))
+                        .padding()
+                        .frame(width: 370.5)
+                        .background(Color.mainGray)
+                        .cornerRadius(8)
+                        .multilineTextAlignment(.leading)
+                        .lineLimit(4...10)
+                    
+                    ZStack{
+                        HStack{
+                            Text("Add Ingrediant")
+                                .font(.system(size: 24))
+                                .bold()
+                            Spacer()
+                            Button {
+                                isActive = true
+                                
+                            } label: {
+                                Text(.init(systemName: "plus"))
+                                    .foregroundColor(.mainOrange)
+                            }
+                        }
+                        
+                    }
+                    .frame(width: 370.5, height: 29)
                     
                 }
-                .frame(width: 370.5, height: 29)
                 
-            }
-           
-            .navigationTitle("New Recipe")
-            .toolbar{
-                ToolbarItem{
-                    Text("Save")
-                        .foregroundColor(.mainOrange)
+                .navigationTitle("New Recipe")
+                .toolbar{
+                    ToolbarItem{
+                        Text("Save")
+                            .foregroundColor(.mainOrange)
+                    }
                 }
-             }
-         }
-        .padding(.top, -90)
-     }
+            }
+            .padding(.top, -90)
+            
+            if isActive{
+                Ingrediants(ingTitle: "Ingrediant name", measTitle: "Measurment", servTitle: "Serving", meas1: "🥄 Spoon", meas2: "🥛 Cup", servNum: 1, addButton: {}, isActive: $isActive)
+            }}
+       
+        }
+    
+    }
  }
-}
+
 #Preview {
 RecipePage()
 }

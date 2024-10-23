@@ -20,6 +20,7 @@ struct Ingrediants: View {
     @State var ingStepper = 1
     @State private var measChosen: String? = nil
     @State private var offset: CGFloat = 1000
+    @Binding var isActive: Bool
     var body: some View {
         ZStack{
             Color(.black)
@@ -89,6 +90,7 @@ struct Ingrediants: View {
                     if let chosen = measChosen{
                         Text(chosen)
                             .frame(width: 120, height: 10, alignment: .trailing)
+                            .foregroundColor(.white)
                     } else {
                         Text("")}
                     HStack{
@@ -163,17 +165,17 @@ struct Ingrediants: View {
                 withAnimation(.spring()){
                     offset = 0}}
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
         .ignoresSafeArea()
     }
         
         func close() {
             withAnimation(.spring()){
                 offset = 1000
+                isActive = false
             }
         }
     }
 
 #Preview {
-    Ingrediants(ingTitle: "Ingrediant name", measTitle: "Measurment", servTitle: "Serving", meas1: "🥄 Spoon", meas2: "🥛 Cup", servNum: 1, addButton: {})
+    Ingrediants(ingTitle: "Ingrediant name", measTitle: "Measurment", servTitle: "Serving", meas1: "🥄 Spoon", meas2: "🥛 Cup", servNum: 1, addButton: {}, isActive: .constant(true))
 }

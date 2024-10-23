@@ -43,12 +43,7 @@ struct ContentView: View {
             }
             
             .frame(width: 241,alignment: .trailing)
-            Rectangle()
-                .frame(width: 241, height: 36)
-                .foregroundColor(.thirdGray)
-                .cornerRadius(8)
         }
-        
         .padding()
     }
 }

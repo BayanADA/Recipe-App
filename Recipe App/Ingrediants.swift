@@ -24,17 +24,17 @@ struct Ingrediants: View {
     var body: some View {
         ZStack{
             Color(.black)
-                .opacity(0.5)
+                .opacity(0.8)
                 .onTapGesture {
                     close()
                 }
             VStack{
                 Text(ingTitle)
-                    .font(.system(size: 20))
+                    .font(.system(size: 22))
                     .frame(width: 275, height: 18, alignment: .leading)
                     .bold()
                 TextField("Ingrediant name", text: $ingName)
-                    .font(.system(size: 14))
+                    .font(.system(size: 16))
                     .padding()
                     .frame(width: 275, height: 39)
                     .background(Color.thirdGray)
@@ -43,7 +43,7 @@ struct Ingrediants: View {
                     .padding(.bottom, 15)
                 
                 Text(measTitle)
-                    .font(.system(size: 20))
+                    .font(.system(size: 22))
                     .frame(width: 241, height: 39, alignment: .leading)
                     .bold()
                 HStack{
@@ -57,7 +57,7 @@ struct Ingrediants: View {
                                 .cornerRadius(8)
                             Text(meas1)
                                 .foregroundColor(.white)
-                            .font(.system(size:14))}
+                            .font(.system(size:16))}
                     }
                     Button {
                         measChosen = meas2
@@ -68,14 +68,14 @@ struct Ingrediants: View {
                             .cornerRadius(8)
                         Text(meas2)
                             .foregroundColor(.white)
-                            .font(.system(size:14))
+                            .font(.system(size:16))
                     }}
                 }
                 .frame(width: 241, height: 8, alignment: .leading)
                 .padding(.bottom, 27)
                 
                 Text(servTitle)
-                    .font(.system(size: 20))
+                    .font(.system(size: 22))
                     .frame(width: 241, height: 10, alignment: .leading)
                     .bold()
                 ZStack{
@@ -106,7 +106,7 @@ struct Ingrediants: View {
                             .cornerRadius(4)}
                         Text("\(ingStepper)")
                             .frame(width: 241, height: 36, alignment: .leading)
-                        .font(.system(size: 20)) }
+                        .font(.system(size: 22)) }
                     .padding(9)
                     VStack{ Button{
                         if ingStepper == 15{}
@@ -137,7 +137,7 @@ struct Ingrediants: View {
                                 .cornerRadius(8)
                             Text("Cancel")
                                 .foregroundColor(.darkRed)
-                            .font(.system(size:20))}}
+                            .font(.system(size:22))}}
                     Button {
                         addButton()
                     }  label: {ZStack{
@@ -147,7 +147,7 @@ struct Ingrediants: View {
                             .cornerRadius(8)
                         Text("Add")
                             .foregroundColor(.white)
-                        .font(.system(size:20))}
+                        .font(.system(size:22))}
                     }
                 }
                 

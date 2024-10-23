@@ -8,22 +8,18 @@
 import SwiftUI
 
 
-//ingTitle
-//measTitle
-//servTitle
-//ingName state
-//measurment
-//serving
-
 struct Ingrediants: View {
     let ingTitle : String
     let measTitle: String
     let servTitle: String
     @State public var ingName = ""
     let meas1: String
+    let meas1Button: () -> ()
     let meas2: String
+    let meas2Button: () -> ()
     let servNum: Int
-    let action: () -> ()
+    let canButton: () -> ()
+    let addButton: () -> ()
     @State var ingStepper = 1
     var body: some View {
         VStack{
@@ -45,16 +41,21 @@ struct Ingrediants: View {
                 .frame(width: 241, height: 39, alignment: .leading)
                 .bold()
             HStack{
-                ZStack{
-                    Rectangle()
-                        .frame(width: 104, height: 31)
-                        .foregroundColor(.mainOrange)
-                        .cornerRadius(8)
-                    Text(meas1)
-                        .foregroundColor(.white)
-                        .font(.system(size:14))
+                Button {
+                    meas1Button()
+                }  label: {
+                    ZStack{
+                        Rectangle()
+                            .frame(width: 104, height: 31)
+                            .foregroundColor(.mainOrange)
+                            .cornerRadius(8)
+                        Text(meas1)
+                            .foregroundColor(.white)
+                        .font(.system(size:14))}
                 }
-                ZStack{
+                Button {
+                    meas2Button()
+                }  label: {ZStack{
                     Rectangle()
                         .frame(width: 104, height: 31)
                         .foregroundColor(.mainOrange)
@@ -62,7 +63,7 @@ struct Ingrediants: View {
                     Text(meas2)
                         .foregroundColor(.white)
                         .font(.system(size:14))
-                }
+                }}
             }
             .frame(width: 241, height: 8, alignment: .leading)
             .padding(.bottom, 27)
@@ -72,12 +73,10 @@ struct Ingrediants: View {
                 .frame(width: 241, height: 10, alignment: .leading)
                 .bold()
             ZStack{
-                HStack{
                     Rectangle()
                         .frame(width: 145, height: 36)
                         .foregroundColor(.mainOrange)
                         .cornerRadius(4)
-                }
                 
                 .frame(width: 220,alignment: .trailing)
                 HStack{
@@ -115,23 +114,27 @@ struct Ingrediants: View {
         
         
         HStack{
-            ZStack{
-                Rectangle()
-                    .frame(width: 134, height: 36)
-                    .foregroundColor(.thirdGray)
-                    .cornerRadius(8)
-                Text("Cancel")
-                    .foregroundColor(.darkRed)
-                    .font(.system(size:20))
-            }
-            ZStack{
+                Button {
+                    canButton()
+                }  label: {
+                    ZStack{
+                        Rectangle()
+                            .frame(width: 134, height: 36)
+                            .foregroundColor(.thirdGray)
+                            .cornerRadius(8)
+                        Text("Cancel")
+                            .foregroundColor(.darkRed)
+                        .font(.system(size:20))}}
+            Button {
+                addButton()
+            }  label: {ZStack{
                 Rectangle()
                     .frame(width: 134, height: 36)
                     .foregroundColor(.mainOrange)
                     .cornerRadius(8)
                 Text("Add")
                     .foregroundColor(.white)
-                    .font(.system(size:20))
+                .font(.system(size:20))}
             }
         }
             
@@ -150,5 +153,5 @@ struct Ingrediants: View {
 }
 
 #Preview {
-    Ingrediants(ingTitle: "Ingrediant name", measTitle: "Measurment", servTitle: "Serving", meas1: "🥄 Spoon", meas2: "🥛 Cup", servNum: 1, action: {})
+    Ingrediants(ingTitle: "Ingrediant name", measTitle: "Measurment", servTitle: "Serving", meas1: "🥄 Spoon", meas1Button: {}, meas2: "🥛 Cup", meas2Button: {}, servNum: 1, canButton: {}, addButton: {})
 }

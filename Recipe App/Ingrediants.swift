@@ -94,29 +94,25 @@ struct Ingrediants: View {
                     } else {
                         Text("")}
                     HStack{
-                        Button{
-                            if ingStepper == 1{}
-                            else{
-                                ingStepper = ingStepper - 1}
-                        } label:{ Image(systemName: "minus")
-                                .foregroundColor(.mainOrange)
-                                .bold()
-                                .frame(width: 27, height: 23)
-                                .border(Color.mainOrange)
-                            .cornerRadius(4)}
-                        Text("\(ingStepper)")
-                            .frame(width: 241, height: 36, alignment: .leading)
-                        .font(.system(size: 22)) }
+                    Button{
+                        minus()
+                    } label:{ Image(systemName: "minus")
+                        .foregroundColor(.mainOrange)
+                        .bold()
+                        .frame(width: 27, height: 23)
+                        .border(Color.mainOrange)
+                        .cornerRadius(4)}
+                    Text("\(ingStepper)")
+                    .frame(width: 241, height: 36, alignment: .leading)
+                    .font(.system(size: 22)) }
                     .padding(9)
                     VStack{ Button{
-                        if ingStepper == 15{}
-                        else{
-                            ingStepper = ingStepper + 1}
+                        plus()
                     } label:{ Image(systemName: "plus")
-                            .foregroundColor(.mainOrange)
-                            .bold()
-                            .frame(width: 27, height: 23)
-                            .border(Color.mainOrange)
+                        .foregroundColor(.mainOrange)
+                        .bold()
+                        .frame(width: 27, height: 23)
+                        .border(Color.mainOrange)
                         .cornerRadius(4)}}
                     .frame(width: 165, height: 39, alignment: .leading)
                 }
@@ -125,55 +121,64 @@ struct Ingrediants: View {
                 .padding(.bottom, 37)
                 .cornerRadius(4)
                 
-                
                 HStack{
                     Button {
                         close()
                     }  label: {
                         ZStack{
-                            Rectangle()
-                                .frame(width: 134, height: 36)
-                                .foregroundColor(.thirdGray)
-                                .cornerRadius(8)
-                            Text("Cancel")
-                                .foregroundColor(.darkRed)
-                            .font(.system(size:22))}}
-                    Button {
-                        addButton()
-                    }  label: {ZStack{
                         Rectangle()
                             .frame(width: 134, height: 36)
-                            .foregroundColor(.mainOrange)
+                            .foregroundColor(.thirdGray)
                             .cornerRadius(8)
-                        Text("Add")
-                            .foregroundColor(.white)
-                        .font(.system(size:22))}
-                    }
+                        Text("Cancel")
+                            .foregroundColor(.darkRed)
+                        .font(.system(size:22))}}
+                Button {
+                    addButton()
+                    close()
+                }  label: {ZStack{
+                    Rectangle()
+                        .frame(width: 134, height: 36)
+                        .foregroundColor(.mainOrange)
+                        .cornerRadius(8)
+                    Text("Add")
+                        .foregroundColor(.white)
+                    .font(.system(size:22))}
                 }
-                
-                
             }
-            .fixedSize(horizontal: false, vertical: true)
-            .padding()
-            .padding(.top)
-            .cornerRadius(8)
-            .background(Color.secondGrey)
-            .clipShape(RoundedRectangle(cornerRadius: 20))
-            .shadow(radius: 8)
-            .offset(x:0, y:offset)
-            .onAppear{
-                withAnimation(.spring()){
-                    offset = 0}}
         }
-        .ignoresSafeArea()
+        .fixedSize(horizontal: false, vertical: true)
+        .padding()
+        .padding(.top)
+        .background(Color.secondGrey)
+        .clipShape(RoundedRectangle(cornerRadius: 20))
+        .shadow(radius: 8)
+        .offset(x:0, y:offset)
+        .onAppear{appear()}
     }
+    .ignoresSafeArea()
+}
         
-        func close() {
-            withAnimation(.spring()){
-                offset = 1000
-                isActive = false
-            }
+    func close() {
+        withAnimation(.spring()){
+            offset = 1000
+            isActive = false
         }
+    }
+    func minus() {
+        if ingStepper == 1{}
+        else{
+            ingStepper = ingStepper - 1}
+    }
+    func plus() {
+        if ingStepper == 15{}
+        else{
+            ingStepper = ingStepper + 1}
+    }
+    func appear() {
+            withAnimation(.spring()){
+                offset = 0}
+    }
     }
 
 #Preview {

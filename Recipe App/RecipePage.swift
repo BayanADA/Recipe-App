@@ -12,9 +12,7 @@ struct RecipePage: View {
     @State public var descriptionText = ""
     @State var isActive : Bool = false
     @State private var ingAdd = ""
-    @State var items: [listModel] = [
-        listModel(ingCount: 1, ingTitle: "String", measType: "String")
-    ]
+    @EnvironmentObject var recViewModel: RecViewModel
     init() {
         let appearance = UINavigationBarAppearance()
         appearance.configureWithOpaqueBackground()
@@ -94,20 +92,21 @@ ZStack {
         
         .navigationTitle("New Recipe")
         .navigationBarItems(
-            leading: EditButton() ,
             trailing: NavigationLink("Save", destination: {
                 Text("yes")
             }))
         
         VStack{
             List {
-                ForEach(items) { item in
+                ForEach(recViewModel.items) { item in
                     ingList(item: item, ingAmount: item)
                     
                 }
-                .onDelete(perform: deleteIng)
+                .onDelete(perform: {indexSet in
+                    recViewModel.items.remove(atOffsets: indexSet)
+                })
             } .padding(.top, -10)
-        }
+        }}
         .padding(.top, 45)
         
         if isActive{
@@ -116,10 +115,10 @@ ZStack {
     }
 }
 }
-}
+
     func deleteIng(indexSet: IndexSet){
-        items.remove(atOffsets: indexSet)}
-    
+        recViewModel.items.remove(atOffsets: indexSet)}
+ 
  }
 
 class ingAdding {
@@ -132,12 +131,15 @@ class ingAdding {
     
 }
 
-#Preview {
-RecipePage()
+struct RecipePage_Previews: PreviewProvider {
+    static var previews: some View {
+        RecipePage()
+            .environmentObject(RecViewModel())
+    }
 }
 
-struct listModel: Identifiable{
-    let id: String = UUID().uuidString
+struct listModel: Identifiable, Codable {
+    var id: String = UUID().uuidString
     let ingCount: Int
     let ingTitle: String
     let measType: String

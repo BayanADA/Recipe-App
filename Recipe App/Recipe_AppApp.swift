@@ -9,11 +9,15 @@ import SwiftUI
 
 @main
 struct Recipe_AppApp: App {
+    
+    @StateObject var recViewModel: RecViewModel = RecViewModel()
+    
     var body: some Scene {
         WindowGroup {
             NavigationView {
                 MainPage()
             }
+            .environmentObject(recViewModel)
             
         }
     }

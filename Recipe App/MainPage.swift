@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct MainPage: View {
+    @EnvironmentObject var recViewModel: RecViewModel
     init() {
         let appearance = UINavigationBarAppearance()
         appearance.configureWithOpaqueBackground()
@@ -16,6 +17,7 @@ struct MainPage: View {
         UINavigationBar.appearance().standardAppearance = appearance
         UINavigationBar.appearance().scrollEdgeAppearance = appearance
     }
+    
     var body: some View {
         
 NavigationStack{
@@ -45,11 +47,12 @@ VStack {
     
         .navigationTitle("Food Recipes")
         .toolbar{
-            ToolbarItem{
-                Text(.init(systemName: "plus"))
-                    .foregroundColor(.mainOrange)
-                
-      }
+            ToolbarItem(placement: .navigationBarTrailing) {
+                NavigationLink(destination: RecipePage()) {
+                    Image(systemName: "plus")
+                        .foregroundColor(.mainOrange)
+                }
+            }
                    }
                 }
             }
@@ -57,6 +60,9 @@ VStack {
     }
 }
 
-#Preview {
-    MainPage()
+struct YourCurrentView_Previews: PreviewProvider {
+    static var previews: some View {
+        MainPage()
+            .environmentObject(RecViewModel()) // Add the environment object here
+    }
 }

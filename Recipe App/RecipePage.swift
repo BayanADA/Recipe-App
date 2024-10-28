@@ -6,12 +6,15 @@
 //
 
 import SwiftUI
+import PhotosUI
 
 struct RecipePage: View {
     @State public var titleText = ""
     @State public var descriptionText = ""
     @State var isActive : Bool = false
     @State private var ingAdd = ""
+    @State var selectedItems: [PhotosPickerItem] = []
+    @State var data: Data?
     @EnvironmentObject var recViewModel: RecViewModel
     init() {
         let appearance = UINavigationBarAppearance()
@@ -25,20 +28,39 @@ var body: some View {
 NavigationStack{
 ZStack {
     VStack{
-        ZStack{
-            Rectangle()
-                .fill(Color.mainGray)
-                .strokeBorder(style: StrokeStyle(lineWidth: 2, dash: [5]))
-                .foregroundColor(.mainOrange)
-                .frame(width: 413, height: 181)
-            VStack{
-                Image(systemName: "photo.badge.plus")
-                    .foregroundColor(.mainOrange)
-                    .font(.system(size: 60))
-                
-                Text("Upload Photo")
-                    .font(.system(size: 22))
-                    .bold()
+        PhotosPicker(selection: $selectedItems, maxSelectionCount: 1, matching: .images) {
+            if let data = data, let uiImage = UIImage(data: data) {
+                Image(uiImage: uiImage)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 413, height: 181)
+            } else {
+                ZStack {
+                    Rectangle()
+                        .fill(Color.mainGray)
+                        .strokeBorder(style: StrokeStyle(lineWidth: 2, dash: [5]))
+                        .foregroundColor(.mainOrange)
+                        .frame(width: 413, height: 181)
+                    VStack {
+                        Image(systemName: "photo.badge.plus")
+                            .foregroundColor(.mainOrange)
+                            .font(.system(size: 60))
+                        Text("Upload Photo")
+                            .font(.system(size: 22))
+                            .bold()
+                    }
+                }
+            }
+        }
+        .onChange(of: selectedItems) { _ in
+            guard let item = selectedItems.first else { return }
+            item.loadTransferable(type: Data.self) { result in
+                switch result {
+                case .success(let data):
+                    self.data = data
+                case .failure(let failure):
+                    print("Error loading image: \(failure)")
+                }
             }
         }
         VStack{
@@ -111,6 +133,7 @@ ZStack {
         
         if isActive{
             Ingrediants(ingTitle: "Ingrediant name", measTitle: "Measurment", servTitle: "Serving", meas1: "🥄 Spoon", meas2: "🥛 Cup", servNum: 1, addButton: {}, isActive: $isActive)
+            
         }
     }
 }

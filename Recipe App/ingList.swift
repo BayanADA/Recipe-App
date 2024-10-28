@@ -31,6 +31,8 @@ struct ingList: View {
 
 
         }
+        .padding(.top, 3)
+        .padding(.bottom, 3)
     }
 }
 

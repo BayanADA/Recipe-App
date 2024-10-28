@@ -9,8 +9,9 @@ import SwiftUI
 import PhotosUI
 
 struct RecipePage: View {
-    @State public var titleText = ""
-    @State public var descriptionText = ""
+    @Environment(\.presentationMode) var presentationMode
+    @State public var recTitle = ""
+    @State public var recDis = ""
     @State var isActive : Bool = false
     @State private var ingAdd = ""
     @State var selectedItems: [PhotosPickerItem] = []
@@ -52,14 +53,14 @@ ZStack {
                 }
             }
         }
-        .onChange(of: selectedItems) { _ in
+        .onChange(of: selectedItems) {
             guard let item = selectedItems.first else { return }
             item.loadTransferable(type: Data.self) { result in
                 switch result {
                 case .success(let data):
                     self.data = data
-                case .failure(let failure):
-                    print("Error loading image: \(failure)")
+                case .failure(let error):
+                    print("Error loading image: \(error)")
                 }
             }
         }
@@ -69,7 +70,7 @@ ZStack {
                 .bold()
                 .frame(width: 370.5, height: 29, alignment: .leading)
             
-            TextField("Title", text: $titleText)
+            TextField("Title", text: $recTitle)
                 .font(.system(size: 24))
                 .padding()
                 .frame(width: 370.5)
@@ -83,7 +84,7 @@ ZStack {
                 .bold()
                 .frame(width: 370.5, height: 29, alignment: .leading)
             
-            TextField("Description", text: $descriptionText, axis: .vertical)
+            TextField("Description", text: $recDis, axis: .vertical)
                 .font(.system(size: 24))
                 .padding()
                 .frame(width: 370.5)
@@ -114,9 +115,12 @@ ZStack {
         
         .navigationTitle("New Recipe")
         .navigationBarItems(
-            trailing: NavigationLink("Save", destination: {
-                Text("yes")
-            }))
+            trailing: Button("Save") {
+                saveButtonPressed()
+                presentationMode.wrappedValue.dismiss()
+            }
+                .foregroundColor(.mainOrange)
+        )
         
         VStack{
             List {
@@ -132,17 +136,23 @@ ZStack {
         .padding(.top, 45)
         
         if isActive{
-            Ingrediants(ingTitle: "Ingrediant name", measTitle: "Measurment", servTitle: "Serving", meas1: "🥄 Spoon", meas2: "🥛 Cup", servNum: 1, addButton: {}, isActive: $isActive)
+            Ingrediants(ingTitle: "Ingrediant name", measTitle: "Measurment", servTitle: "Serving", meas1: "🥄 Spoon", meas2: "🥛 Cup", servNum: 1, isActive: $isActive)
             
         }
     }
+    
 }
+    
+}
+    func saveButtonPressed() {
+        recViewModel.addRec(recTitle: recTitle, recDis: recDis)
 }
 
     func deleteIng(indexSet: IndexSet){
         recViewModel.items.remove(atOffsets: indexSet)}
  
  }
+
 
 class ingAdding {
     var ingCount: Int = 0

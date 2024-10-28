@@ -16,7 +16,6 @@ let servTitle: String
 let meas1: String
 let meas2: String
 let servNum: Int
-let addButton: () -> ()
 @State var ingStepper = 1
 @State private var measChosen: String? = nil
 @State private var offset: CGFloat = 1000
@@ -147,56 +146,55 @@ ZStack{
             .font(.system(size:22))}
         }
     }
-}
-.fixedSize(horizontal: false, vertical: true)
-.padding()
-.padding(.top)
-.background(Color.secondGrey)
-.clipShape(RoundedRectangle(cornerRadius: 20))
-.shadow(radius: 8)
-.offset(x:0, y:offset)
-.onAppear{appear()}
-}
-.ignoresSafeArea()
-}
+    }
+    .fixedSize(horizontal: false, vertical: true)
+    .padding()
+    .padding(.top)
+    .background(Color.secondGrey)
+    .clipShape(RoundedRectangle(cornerRadius: 20))
+    .shadow(radius: 8)
+    .offset(x:0, y:offset)
+    .onAppear{appear()}
+    }
+    .ignoresSafeArea()
+    }
 
-func close() {
-withAnimation(.spring()){
-    offset = 1000
-    isActive = false
-}
-}
-func minus() {
-if ingStepper == 1{}
-else{
-    ingStepper = ingStepper - 1}
-}
-func plus() {
-if ingStepper == 15{}
-else{
-    ingStepper = ingStepper + 1}
-}
-func appear() {
+    func close() {
     withAnimation(.spring()){
-        offset = 0}
-}
-func addButtonPressed() {
-recViewModel.addIng(title: ingName, ingCount: ingStepper, measType: measChosen ?? "")
-}
-}
+        offset = 1000
+        isActive = false
+    }
+    }
+    func minus() {
+    if ingStepper == 1{}
+    else{
+        ingStepper = ingStepper - 1}
+    }
+    func plus() {
+    if ingStepper == 15{}
+    else{
+        ingStepper = ingStepper + 1}
+    }
+    func appear() {
+        withAnimation(.spring()){
+            offset = 0}
+    }
+    func addButtonPressed() {
+    recViewModel.addIng(title: ingName, ingCount: ingStepper, measType: measChosen ?? "")
+    }
+    }
 
-struct Ingrediants_Previews: PreviewProvider {
-static var previews: some View {
-Ingrediants(
-    ingTitle: "Ingrediant name",
-    measTitle: "Measurment",
-    servTitle: "Serving",
-    meas1: "🥄 Spoon",
-    meas2: "🥛 Cup",
-    servNum: 1,
-    addButton: {},
-    isActive: .constant(true)
-)
-.environmentObject(RecViewModel())
-}
-}
+    struct Ingrediants_Previews: PreviewProvider {
+    static var previews: some View {
+    Ingrediants(
+        ingTitle: "Ingrediant name",
+        measTitle: "Measurment",
+        servTitle: "Serving",
+        meas1: "🥄 Spoon",
+        meas2: "🥛 Cup",
+        servNum: 1,
+        isActive: .constant(true)
+    )
+    .environmentObject(RecViewModel())
+    }
+    }
